@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BiometricsApp.iml" filepath="$PROJECT_DIR$/.idea/modules/BiometricsApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BiometricsApp.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BiometricsApp.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Biometric_App.iml" filepath="$PROJECT_DIR$/.idea/modules/Biometric_App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Biometric_App.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Biometric_App.app.iml" />
     </modules>
   </component>
 </project>
