@@ -187,7 +187,7 @@ public class ServicioEscucharBeacons  extends IntentService {
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     /**
-     * Busca los dispositivos disponibles
+     * Busca los dispositivos disponibles y despues recibe los datos de los sensores
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void buscarTodosLosDispositivosBTLE() {
@@ -202,16 +202,20 @@ public class ServicioEscucharBeacons  extends IntentService {
                 Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): onScanResult() ");
 
                 mostrarInformacionDispositivoBTLE( resultado );
-
                 byte[] bytes = resultado.getScanRecord().getBytes();
                 TramaIBeacon tib = new TramaIBeacon(bytes);
-                // Esto es la medida, podria ser el minor
-                String valor = Utilidades.bytesToString(tib.getMajor());
+                // El UUID del sensor
                 String sensor_id = Utilidades.bytesToString(tib.getUUID());
-                // TODO: Objeto medicion constructor
-                Medida medida = new Medida(valor, "0", "0", sensor_id);
-                // Envia el objeto por la logica
-                Logica.postMedida(medida);
+                if(sensor_id.equals(Constantes.NOMBRE_SENSOR)) {
+
+                    // Esto es el valor de la medida
+                    String valor = Utilidades.bytesToString(tib.getMinor());
+                    // Objeto medicion constructor
+                    // TODO: localizacion del movil
+                    Medida medida = new Medida(valor, "0", "0", sensor_id);
+                    // Envia el objeto por la logica
+                    Logica.postMedida(medida);
+                }
             }
 
             @Override
