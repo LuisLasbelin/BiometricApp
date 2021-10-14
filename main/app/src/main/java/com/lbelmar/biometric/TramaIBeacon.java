@@ -23,72 +23,133 @@ public class TramaIBeacon {
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve el prefijo de una trama
+     *
+     * @return lista de bytes
+     */
     public byte[] getPrefijo() {
         return prefijo;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve el UUID de una trama
+     *
+     * @return lista de bytes
+     */
     public byte[] getUUID() {
         return uuid;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve el valor Major de una trama
+     *
+     * @return lista de bytes
+     */
     public byte[] getMajor() {
         return major;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve el valor Minor de una trama
+     *
+     * @return lista de bytes
+     */
     public byte[] getMinor() {
         return minor;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve el valor TxPower de una trama
+     *
+     * @return lista de bytes
+     */
     public byte getTxPower() {
         return txPower;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve los Bytes de una trama
+     *
+     * @return lista de bytes
+     */
     public byte[] getLosBytes() {
         return losBytes;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve los advFlags de una trama
+     *
+     * @return lista de bytes
+     */
     public byte[] getAdvFlags() {
         return advFlags;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve los advHeader de una trama
+     *
+     * @return prefijo lista de bytes
+     */
     public byte[] getAdvHeader() {
         return advHeader;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve la ID de compañia de una trama
+     *
+     * @return prefijo lista de bytes
+     */
     public byte[] getCompanyID() {
         return companyID;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve el tipo de Beacon de una trama
+     *
+     * @return prefijo lista de bytes
+     */
     public byte getiBeaconType() {
         return iBeaconType;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Devuelve la longitud de beacon de una trama
+     *
+     * @return prefijo lista de bytes
+     */
     public byte getiBeaconLength() {
         return iBeaconLength;
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Analiza una trama de bytes recibidos desde un dispositivo y los asigna a los
+     * valores de la clase
+     *
+     * @param bytes lista de bytes
+     */
     public TramaIBeacon(byte[] bytes ) {
         this.losBytes = bytes;
 

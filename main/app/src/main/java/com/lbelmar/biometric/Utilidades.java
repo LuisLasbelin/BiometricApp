@@ -12,6 +12,12 @@ public class Utilidades {
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Convierte un texto en una lista de bytes
+     *
+     * @param texto texto a convertir
+     * @return lista de bytes
+     */
     public static byte[] stringToBytes ( String texto ) {
         return texto.getBytes();
         // byte[] b = string.getBytes(StandardCharsets.UTF_8); // Ja
@@ -19,6 +25,12 @@ public class Utilidades {
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Convierte un texto en un UUID
+     *
+     * @param uuid texto a convertir
+     * @return lista de bytes
+     */
     public static UUID stringToUUID(String uuid ) {
         if ( uuid.length() != 16 ) {
             throw new Error( "stringUUID: string no tiene 16 caracteres ");
@@ -38,18 +50,36 @@ public class Utilidades {
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Convierte un UUID en un texto
+     *
+     * @param uuid UUID a convertir
+     * @return texto del uuid
+     */
     public static String uuidToString ( UUID uuid ) {
         return bytesToString( dosLongToBytes( uuid.getMostSignificantBits(), uuid.getLeastSignificantBits() ) );
     } // ()
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Convierte un UUID en un HexString
+     *
+     * @param uuid texto a convertir
+     * @return texto del uuid
+     */
     public static String uuidToHexString ( UUID uuid ) {
         return bytesToHexString( dosLongToBytes( uuid.getMostSignificantBits(), uuid.getLeastSignificantBits() ) );
     } // ()
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Convierte una lista de bytes en un texto
+     *
+     * @param bytes lista de bytes
+     * @return texto resultante
+     */
     public static String bytesToString( byte[] bytes ) {
         if (bytes == null ) {
             return "";
@@ -64,6 +94,13 @@ public class Utilidades {
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Asigna dos numeros, el mas significativo y el menos, a una lista de bytes
+     *
+     * @param masSignificativos numero
+     * @param menosSignificativos numero
+     * @return lista de bytes
+     */
     public static byte[] dosLongToBytes( long masSignificativos, long menosSignificativos ) {
         ByteBuffer buffer = ByteBuffer.allocate( 2 * Long.BYTES );
         buffer.putLong( masSignificativos );
@@ -73,18 +110,37 @@ public class Utilidades {
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Convierte una lista de bytes en un numero entero
+     *
+     * @param bytes lista de bytes
+     * @return numero entero
+     */
     public static int bytesToInt( byte[] bytes ) {
         return new BigInteger(bytes).intValue();
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Convierte una lista de bytes en un numero real
+     *
+     * @param bytes lista de bytes
+     * @return numero real
+     */
     public static long bytesToLong( byte[] bytes ) {
         return new BigInteger(bytes).longValue();
     }
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Comprueba que la lista de bytes pueda convertirse en un numero entero y
+     * luego lo acota y convierte
+     *
+     * @param bytes lista de bytes
+     * @return numero entero
+     */
     public static int bytesToIntOK( byte[] bytes ) {
         if (bytes == null ) {
             return 0;
@@ -123,6 +179,12 @@ public class Utilidades {
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
+    /**
+     * Convierte una lista de bytes en un HexString
+     *
+     * @param bytes lista de bytes
+     * @return texto
+     */
     public static String bytesToHexString( byte[] bytes ) {
 
         if (bytes == null ) {

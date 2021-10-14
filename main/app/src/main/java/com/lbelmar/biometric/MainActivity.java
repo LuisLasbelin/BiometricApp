@@ -12,9 +12,14 @@ import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 
@@ -38,8 +43,51 @@ public class MainActivity extends AppCompatActivity {
 
     private ScanCallback callbackDelEscaneo = null;
 
+    private Intent elIntentDelServicio = null;
+
+
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    public void botonArrancarServicioPulsado( View v ) {
+        Log.d(ETIQUETA_LOG, " boton arrancar servicio Pulsado" );
+
+        if ( this.elIntentDelServicio != null ) {
+            // ya estaba arrancado
+            return;
+        }
+
+        Log.d(ETIQUETA_LOG, " MainActivity.constructor : voy a arrancar el servicio");
+
+        this.elIntentDelServicio = new Intent(this, ServicioEscucharBeacons.class);
+
+        this.elIntentDelServicio.putExtra("tiempoDeEspera", (long) 5000);
+        startService( this.elIntentDelServicio );
+
+    } // ()
+
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    public void botonDetenerServicioPulsado( View v ) {
+
+        if ( this.elIntentDelServicio == null ) {
+            // no estaba arrancado
+            return;
+        }
+
+        stopService( this.elIntentDelServicio );
+
+        this.elIntentDelServicio = null;
+
+        Log.d(ETIQUETA_LOG, " boton detener servicio Pulsado" );
+
+
+    } // ()
+
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Busca los dispositivos disponibles
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void buscarTodosLosDispositivosBTLE() {
         Log.d(ETIQUETA_LOG, " buscarTodosLosDispositivosBTL(): empieza ");
@@ -78,15 +126,20 @@ public class MainActivity extends AppCompatActivity {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Muestra la informacion de un dispositivo
+     *
+     * @param  dispositivo  el dispositivo a analizar
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void mostrarInformacionDispositivoBTLE(ScanResult resultado ) {
+    private void mostrarInformacionDispositivoBTLE(ScanResult dispositivo ) {
 
-        BluetoothDevice bluetoothDevice = resultado.getDevice();
-        byte[] bytes = resultado.getScanRecord().getBytes();
-        int rssi = resultado.getRssi();
+        BluetoothDevice bluetoothDevice = dispositivo.getDevice();
+        byte[] bytes = dispositivo.getScanRecord().getBytes();
+        int rssi = dispositivo.getRssi();
 
         Log.d(ETIQUETA_LOG, " ****************************************************");
-        Log.d(ETIQUETA_LOG, " ****** DISPOSITIVO DETECTADO BTLE ****************** ");
+        Log.d(ETIQUETA_LOG, " ****** DISPOSITIVO DETECTADO BTLE ******************");
         Log.d(ETIQUETA_LOG, " ****************************************************");
         Log.d(ETIQUETA_LOG, " nombre = " + bluetoothDevice.getName());
         Log.d(ETIQUETA_LOG, " toString = " + bluetoothDevice.toString());
@@ -127,6 +180,11 @@ public class MainActivity extends AppCompatActivity {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Busca un dispositivo concreto
+     *
+     * @param  dispositivoBuscado   el dispositivo que debe buscar
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void buscarEsteDispositivoBTLE(final String dispositivoBuscado ) {
         Log.d(ETIQUETA_LOG, " buscarEsteDispositivoBTLE(): empieza ");
@@ -171,6 +229,9 @@ public class MainActivity extends AppCompatActivity {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Detiene la busqueda de un dispositivo
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void detenerBusquedaDispositivosBTLE() {
 
@@ -185,6 +246,11 @@ public class MainActivity extends AppCompatActivity {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Busca dispositivos disponibles al pulsar un boton
+     *
+     * @param  v   la vista del boton
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void botonBuscarDispositivosBTLEPulsado(View v ) {
         Log.d(ETIQUETA_LOG, " boton buscar dispositivos BTLE Pulsado" );
@@ -193,18 +259,27 @@ public class MainActivity extends AppCompatActivity {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Busca un dispositivo concreto
+     *
+     * @param  v   la vista del boton
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void botonBuscarNuestroDispositivoBTLEPulsado(View v ) {
         Log.d(ETIQUETA_LOG, " boton nuestro dispositivo BTLE Pulsado" );
         //this.buscarEsteDispositivoBTLE( Utilidades.stringToUUID( "EPSG-GTI-PROY-3A" ) );
 
-        //this.buscarEsteDispositivoBTLE( "EPSG-GTI-PROY-3A" );
-        this.buscarEsteDispositivoBTLE( "fistro" );
+        this.buscarEsteDispositivoBTLE( "EPSG-GTI-LUIS-3A" );
 
     } // ()
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Cancela la busqueda de un dispositivo
+     *
+     * @param  v   la vista del boton
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void botonDetenerBusquedaDispositivosBTLEPulsado(View v ) {
         Log.d(ETIQUETA_LOG, " boton detener busqueda dispositivos BTLE Pulsado" );
@@ -213,6 +288,9 @@ public class MainActivity extends AppCompatActivity {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Inicia el servicio Bluetooth
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void inicializarBlueTooth() {
         Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): obtenemos adaptador BT ");
@@ -274,6 +352,13 @@ public class MainActivity extends AppCompatActivity {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+    /**
+     * Actualiza los permisos cuando se piden
+     *
+     * @param  requestCode   codigo de permiso
+     * @param  permissions   lista de permisos
+     * @param  grantResults   resultados de los permisos
+     */
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
         super.onRequestPermissionsResult( requestCode, permissions, grantResults);
