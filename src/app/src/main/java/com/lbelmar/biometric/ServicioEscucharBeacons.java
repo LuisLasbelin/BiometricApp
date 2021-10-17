@@ -1,9 +1,7 @@
 package com.lbelmar.biometric;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.IntentService;
-import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeScanner;
@@ -11,9 +9,7 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,17 +17,12 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import java.util.Collections;
 import java.util.List;
-
-import static android.app.Service.START_STICKY;
 
 // -------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------
@@ -155,7 +146,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
             // --------------------------------------------------------------
             // Llamadas a la logica
             // --------------------------------------------------------------
-            Logica.getTodasLasMedidas();
+            Logica.obtenerTodasLasMedidas();
             buscarEsteDispositivoBTLE(Constantes.NOMBRE_SENSOR);
 
             Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )" );
@@ -324,7 +315,6 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
 
         Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): instalamos scan callback ");
 
-
         // super.onScanResult(ScanSettings.SCAN_MODE_LOW_LATENCY, result); para ahorro de energía
 
         this.callbackDelEscaneo = new ScanCallback() {
@@ -345,7 +335,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 // Objeto medicion constructor
                 Medida medida = new Medida(valor, ultimaLocalizacion.getLatitude(), ultimaLocalizacion.getLongitude(), sensor_id);
                 // Envia el objeto por la logica
-                Logica.postMedida(medida);
+                Logica.guardarMedida(medida);
 
             }
 

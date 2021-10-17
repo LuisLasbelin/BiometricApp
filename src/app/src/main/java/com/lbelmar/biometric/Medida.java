@@ -25,4 +25,21 @@ public class Medida {
         this.longitud = longitud;
         this.sensor_id = sensor_id;
     }
+
+    /**
+     * Convierte el objeto en texto
+     *
+     * @return json en texto
+     */
+    @Override
+    public String toString() {
+        String res = "{" +
+                "\"valor\":\""+this.medicion_valor+ "\", " +
+                "\"fecha\":\""+fechaConFormato+"\", " +
+                "\"latitud\":\""+this.latitud+"\", " +
+                "\"longitud\":\""+this.longitud+"\", " +
+                "\"sensor_id\":\""+this.sensor_id+"\"" +
+                "}";
+        return res;
+    }
 }

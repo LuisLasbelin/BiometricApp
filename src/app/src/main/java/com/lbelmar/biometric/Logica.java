@@ -10,7 +10,7 @@ public class Logica {
     /**
      * Recibe las medidas del servidor REST
      */
-    public static void getTodasLasMedidas() {
+    public static void obtenerTodasLasMedidas() {
         elPeticionario.hacerPeticionREST("GET", Constantes.URL + "medidas", null,
                 new PeticionarioREST.RespuestaREST () {
                     @Override
@@ -23,14 +23,13 @@ public class Logica {
 
     /**
      * Envia una medida al servidor REST
-     * `medida/` + valor + "/" + latitud + "/" + longitud + "/" + sensor
+     *
      * @param medida objeto Medida
      */
-    public static void postMedida(Medida medida) {
+    public static void guardarMedida(Medida medida) {
         // Post una medida desde los datos recibidos por el beacon
-        elPeticionario.hacerPeticionREST("POST", Constantes.URL + "medida/" +
-                        medida.medicion_valor + "/" + medida.medicion_valor + "/" + medida.latitud + "/" + medida.longitud + "/" + medida.sensor_id,
-                null,
+        elPeticionario.hacerPeticionREST("POST", Constantes.URL + "medida/",
+                medida.toString(),
                 new PeticionarioREST.RespuestaREST () {
                     @Override
                     public void callback(int codigo, String cuerpo) {
