@@ -13,7 +13,7 @@ import android.util.Log;
 
 // ------------------------------------------------------------------------
 // ------------------------------------------------------------------------
-public class PeticionarioREST extends AsyncTask<Void, Void, Boolean> {
+public class PeticionarioREST extends AsyncTask<String, Void, Boolean> {
 
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
@@ -33,6 +33,7 @@ public class PeticionarioREST extends AsyncTask<Void, Void, Boolean> {
 
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
+    /*
     public void hacerPeticionREST (String metodo, String urlDestino, String cuerpo, RespuestaREST  laRespuesta) {
         this.elMetodo = metodo;
         this.urlDestino = urlDestino;
@@ -41,6 +42,7 @@ public class PeticionarioREST extends AsyncTask<Void, Void, Boolean> {
 
         this.execute(); // otro thread ejecutará doInBackground()
     }
+    */
 
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
@@ -50,8 +52,26 @@ public class PeticionarioREST extends AsyncTask<Void, Void, Boolean> {
 
     // --------------------------------------------------------------------
     // --------------------------------------------------------------------
+
+    /**
+     * Ejecuta la tarea
+     *
+     * @param params metodo, destino, cuerpo
+     * @return
+     */
     @Override
-    protected Boolean doInBackground(Void... params) {
+    protected Boolean doInBackground(String... params) {
+        this.elMetodo = params[0];
+        this.urlDestino = params[1];
+        this.elCuerpo = params[2];
+        // creamos el callback
+        laRespuesta = new PeticionarioREST.RespuestaREST () {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+                Log.d("API-REST", "codigo respuesta= " + codigo + " <-> \n" + cuerpo);
+            }
+        };
+
         Log.d("clienterestandroid", "doInBackground()");
 
         try {

@@ -113,7 +113,7 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        this.tiempoDeEspera = intent.getLongExtra("tiempoDeEspera", /* default */ 50000);
+        this.tiempoDeEspera = intent.getLongExtra("tiempoDeEspera", /* default */ 5000);
         this.seguir = true;
 
         inicializarBlueTooth();
@@ -130,24 +130,25 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 Thread.sleep(tiempoDeEspera);
                 Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
+
+                manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
+                Criteria criterio = new Criteria();
+                criterio.setCostAllowed(false);
+                criterio.setAltitudeRequired(false);
+                criterio.setAccuracy(Criteria.ACCURACY_FINE);
+                String proveedor = manejador.getBestProvider(criterio, true);
+                Log.d("adv", "Mejor proveedor: " + proveedor + "\n");
+                Log.d("adv", "Comenzamos con la última localización conocida:");
+                // El permiso lo pide MainActivity.java
+                ultimaLocalizacion = manejador.getLastKnownLocation(proveedor);
+
+                // --------------------------------------------------------------
+                // Llamadas a la logica
+                // --------------------------------------------------------------
+                Logica.obtenerTodasLasMedidas();
+                // Busca
+                buscarEsteDispositivoBTLE(Constantes.NOMBRE_SENSOR);
             }
-
-            manejador = (LocationManager) getSystemService(LOCATION_SERVICE);
-            Criteria criterio = new Criteria();
-            criterio.setCostAllowed(false);
-            criterio.setAltitudeRequired(false);
-            criterio.setAccuracy(Criteria.ACCURACY_FINE);
-            String proveedor = manejador.getBestProvider(criterio, true);
-            Log.d("adv", "Mejor proveedor: " + proveedor + "\n");
-            Log.d("adv", "Comenzamos con la última localización conocida:");
-            // El permiso lo pide MainActivity.java
-            ultimaLocalizacion = manejador.getLastKnownLocation(proveedor);
-
-            // --------------------------------------------------------------
-            // Llamadas a la logica
-            // --------------------------------------------------------------
-            Logica.obtenerTodasLasMedidas();
-            buscarEsteDispositivoBTLE(Constantes.NOMBRE_SENSOR);
 
             Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )" );
 
