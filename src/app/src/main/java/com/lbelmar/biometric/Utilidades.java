@@ -13,6 +13,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * texto:texto -> stringToBytes() -> [bytes]
      * Convierte un texto en una lista de bytes
      *
      * @param texto texto a convertir
@@ -26,6 +27,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * uuid:texto -> stringToUUID() -> [bytes]
      * Convierte un texto en un UUID
      *
      * @param uuid texto a convertir
@@ -51,6 +53,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * uuid:UUID -> uuidToString -> texto
      * Convierte un UUID en un texto
      *
      * @param uuid UUID a convertir
@@ -63,6 +66,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * uuid:UUID -> uuidToHexString -> [bytes]
      * Convierte un UUID en un HexString
      *
      * @param uuid texto a convertir
@@ -75,6 +79,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * bytes:[bytes] -> bytesToString() -> texto
      * Convierte una lista de bytes en un texto
      *
      * @param bytes lista de bytes
@@ -95,6 +100,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * masSignificativos:R, menosSignificativos:R -> dosLongToBytes() -> [bytes]
      * Asigna dos numeros, el mas significativo y el menos, a una lista de bytes
      *
      * @param masSignificativos numero
@@ -111,6 +117,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * bytes:[bytes] -> bytesToInt() -> Z
      * Convierte una lista de bytes en un numero entero
      *
      * @param bytes lista de bytes
@@ -123,6 +130,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * bytes:[bytes] -> bytesToLong() -> R
      * Convierte una lista de bytes en un numero real
      *
      * @param bytes lista de bytes
@@ -135,6 +143,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * bytes:[bytes] -> bytesToIntOK() -> R
      * Comprueba que la lista de bytes pueda convertirse en un numero entero y
      * luego lo acota y convierte
      *
@@ -180,6 +189,7 @@ public class Utilidades {
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
     /**
+     * bytes:[bytes] -> bytesToHexString() -> texto
      * Convierte una lista de bytes en un HexString
      *
      * @param bytes lista de bytes

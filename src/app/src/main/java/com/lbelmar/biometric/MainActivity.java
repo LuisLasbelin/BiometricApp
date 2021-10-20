@@ -1,5 +1,10 @@
 package com.lbelmar.biometric;
 
+// -------------------------------------------------------
+// Autor: Luis Belloch
+// Descripcion: MainActivity
+// Fecha: 15/10/2021
+// -------------------------------------------------------
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -82,6 +87,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ServicioEscucharBeacons.class);
                 startService(intent);
+            }
+        });
+
+        // Click this button to stop a intent service.
+        Button stopIntentService = (Button)findViewById(R.id.intent_service_stop_intent_service);
+        startIntentService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ServicioEscucharBeacons.class);
+                stopService(intent);
             }
         });
 

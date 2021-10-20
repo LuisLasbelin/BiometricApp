@@ -1,6 +1,10 @@
 package com.lbelmar.biometric;
 
-import java.sql.Timestamp;
+// -------------------------------------------------------
+// Autor: Luis Belloch
+// Descripcion: Objeto medida para administrar datos
+// Fecha: 15/10/2021
+// -------------------------------------------------------
 import java.time.LocalDateTime;
 
 public class Medida {
@@ -9,21 +13,18 @@ public class Medida {
     LocalDateTime fechaConFormato;
     double latitud;
     double longitud;
-    String sensor_id;
 
     /**
      * Constructor de un objeto Medida
      * @param medicion_valor medicion CO2
      * @param latitud en grados
      * @param longitud en grados
-     * @param sensor_id UUID
      */
-    public Medida(String medicion_valor, double latitud, double longitud, String sensor_id) {
+    public Medida(String medicion_valor, double latitud, double longitud) {
         this.fechaConFormato = LocalDateTime.now();
         this.medicion_valor = medicion_valor;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.sensor_id = sensor_id;
     }
 
     /**
@@ -38,8 +39,54 @@ public class Medida {
                 "\"fecha\":\""+fechaConFormato+"\", " +
                 "\"latitud\":\""+this.latitud+"\", " +
                 "\"longitud\":\""+this.longitud+"\", " +
-                "\"sensor_id\":\""+this.sensor_id+"\"" +
                 "}";
         return res;
     }
+
+    // -------------------------------------------------------
+    // region GETTERS
+    // -------------------------------------------------------
+    /**
+     * getMedicion_valor() -> medicion_valor:Z
+     * Devuelve el valor de la medida
+     *
+     * @return Z con el valor de CO2
+     */
+    public String getMedicion_valor() {
+        return medicion_valor;
+    }
+
+    /**
+     * getFechaConFormato() -> fechaConFormato:texto
+     * Devuelve la fecha en formato DateTime
+     *
+     * @return fecha en formato DateTime
+     */
+    public LocalDateTime getFechaConFormato() {
+        return fechaConFormato;
+    }
+
+    /**
+     * getLatitud() -> latitud:Z
+     * Devuelve el valor de latitud
+     *
+     * @return Z con el valor de CO2
+     */
+    public double getLatitud() {
+        return latitud;
+    }
+
+    /**
+     * getLongitud() -> longitud:Z
+     * Devuelve el valor de longitud
+     *
+     * @return entero de longitud
+     */
+    public double getLongitud() {
+        return longitud;
+    }
+    // -------------------------------------------------------
+    // endregion
+    // -------------------------------------------------------
+
 }

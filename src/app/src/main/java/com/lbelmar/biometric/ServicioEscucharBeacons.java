@@ -1,5 +1,9 @@
 package com.lbelmar.biometric;
-
+// -------------------------------------------------------
+// Autor: Luis Belloch
+// Descripcion: Administra el servicio de escuchar beacons
+// Fecha: 15/10/2021
+// -------------------------------------------------------
 import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
@@ -21,6 +25,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -331,10 +336,11 @@ public class ServicioEscucharBeacons extends IntentService implements LocationLi
                 // El UUID del sensor
                 String sensor_id = Utilidades.bytesToString(tib.getUUID());
 
+                Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): dispositivo escaneado UUID:  " + Arrays.toString(tib.getUUID()));
                 // Esto es el valor de la medida
                 String valor = Utilidades.bytesToString(tib.getMinor());
                 // Objeto medicion constructor
-                Medida medida = new Medida(valor, ultimaLocalizacion.getLatitude(), ultimaLocalizacion.getLongitude(), sensor_id);
+                Medida medida = new Medida(valor, ultimaLocalizacion.getLatitude(), ultimaLocalizacion.getLongitude());
                 // Envia el objeto por la logica
                 Logica.guardarMedida(medida);
 

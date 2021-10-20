@@ -14,4 +14,10 @@
         android:layout_height="wrap_content"
         />
 
+    <Button
+        android:id="@+id/intent_service_stop_intent_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/parar_servicio" />
+
 </android.widget.LinearLayout>
